@@ -32,7 +32,7 @@ evento3.addEventListener("click", ()=>{
 
 
 
-const propiedades =[]
+const propiedades = JSON.parse(localStorage.getItem("nuevaPropiedad")) || []
 
 class propiedad {
     constructor(ubicacion, dormitorios, baños){
@@ -75,7 +75,14 @@ const verPropiedad = (nuevaPropiedad) =>{
 
 const todasPropiedades = document.querySelector("#todasPropiedades")
 propiedades.forEach((propiedad) => {
-    verPropiedad(nuevaPropiedad)
+    verPropiedad(propiedad)
 
 })           
 
+//Eliminar de la memoria todo lo que este agregado
+const eliminarTodo = document.querySelector("#eliminarTodo")
+eliminarTodo.addEventListener("click",()=>{
+    localStorage.clear()
+    location.reload()
+
+})
