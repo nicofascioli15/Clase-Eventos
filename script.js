@@ -32,7 +32,6 @@ evento3.addEventListener("click", ()=>{
 
 
 
-
 const propiedades =[]
 
 class propiedad {
@@ -46,14 +45,19 @@ class propiedad {
 
 
 const datosPropiedad = document.querySelector ("#datosPropiedad")
+
 datosPropiedad.addEventListener("submit", (e)=>{
     e.preventDefault()
-const datos = e.target.children
-const nuevaPropiedad = new propiedad (datos["ubicacion"].value, datos["dormitorios"].value, datos["baños"].value)
-propiedades.push(propiedad)
-datosPropiedad.reset()
-verPropiedad(nuevaPropiedad)
+    const datos = e.target.children
+    const nuevaPropiedad = new propiedad (datos["ubicacion"].value, datos["dormitorios"].value, datos["baños"].value)       
+    propiedades.push(nuevaPropiedad)
+    localStorage.setItem("nuevaPropiedad", JSON.stringify(propiedades))
+    datosPropiedad.reset()
+    verPropiedad(nuevaPropiedad)
+    
 })
+
+
 
 const verPropiedad = (nuevaPropiedad) =>{
     const tarjetaPropiedad = document.createElement("div")
@@ -63,7 +67,7 @@ const verPropiedad = (nuevaPropiedad) =>{
                                     <p>Baños: ${nuevaPropiedad.baños}</p>
                                     <button>Editar</button>
                                     <button>Eliminar</button>`
-todasPropiedades.prepend(tarjetaPropiedad)
+    todasPropiedades.appendChild(tarjetaPropiedad)
 }
 
 // recorro el array de las propiedades y en cada vuelta le voy 
@@ -72,5 +76,6 @@ todasPropiedades.prepend(tarjetaPropiedad)
 const todasPropiedades = document.querySelector("#todasPropiedades")
 propiedades.forEach((propiedad) => {
     verPropiedad(nuevaPropiedad)
-    
+
 })           
+
